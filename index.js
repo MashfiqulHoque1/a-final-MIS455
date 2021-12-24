@@ -1,28 +1,26 @@
-api();
+var input = document.querySelector('.input_text');
+var main = document.querySelector('#name');
+var temp = document.querySelector('.temp');
+var desc = document.querySelector('.desc');
+var clouds = document.querySelector('.clouds');
+var button= document.querySelector('.submit');
 
-function api(){
-    var typed = document.getElementById("textbox").value;
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${typed}&appid=c634bcf2c21f7e1f16a07d36dd5a7f69`)
-    .then(res => res.json())
-    .then(data => showtime(data));
-}
 
-function showtime(arraydata){
-    console.log(arraydata);
+button.addEventListener('click', function(name){
+fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=c634bcf2c21f7e1f16a07d36dd5a7f69')
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+  var tempValue = data['main']['temp']- 273.15;
+  var nameValue = data['name'];
+  var descValue = data['weather'][0]['description'];
 
-    var content = document.getElementById("api-data");
-    
-    for(var i=0; i<arraydata.length; i++){
+  main.innerHTML = nameValue;
+  desc.innerHTML = "Desc - "+descValue;
+  temp.innerHTML = "Temp - "+tempValue.toFixed(2) + "°C";
+  input.value ="";
 
-        var newdiv = document.createElement("div");
-        newdiv.classList.add("api-data-style");
+})
 
-        newdiv.innerHTML = `
-        <div>
-        <p>Weather in ${typed}</p>
-        </div>
-        `
-
-      content.appendChild(newdiv);
-    }
-}
+.catch(err => alert("Wrong city name!"));
+})
