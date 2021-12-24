@@ -49,7 +49,13 @@
     margin:auto;
   }
   
-  
+  .image{
+      display: grid;
+      grid-template-columns: auto;
+      justify-content: center;
+      align-items: center;
+  }
+
   .close{
     float: right;
     margin-top: -2px;
